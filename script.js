@@ -1,5 +1,5 @@
 const form = document.querySelector("form");
-const article = document.querySelector("#display");
+const section = document.querySelector("section");
 
 form.addEventListener("submit", event => {
     event.preventDefault();
@@ -15,21 +15,21 @@ form.addEventListener("submit", event => {
             return response.json();
         })
         .then(json => {
-            showName(json);
-            showPictures(json);
+            displayPokemon(json);
         })
         .catch(console.error);
 
 })
 
-function showName(json) {
+function displayPokemon(json) {
     const name = json.forms[0].name;
+    let article = document.createElement("article");
     let nameH2 = document.createElement("h2");
     nameH2.textContent = name;
     article.appendChild(nameH2);
-}
+    //section.appendChild(article);
+    section.insertBefore(article, section.childNodes[0]);
 
-function showPictures(json) {
     const url = json.forms[0].url;
     fetch(url)
         .then(response => {
